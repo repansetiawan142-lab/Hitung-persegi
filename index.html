@@ -1,0 +1,180 @@
+kalkulator-persegi/
+├── persegi.py
+├── test_persegi.py
+├── README.md
+├── .gitignore
+└── LICENSE
+```
+
+## `persegi.py`
+
+```python
+"""Kalkulator persegi: menghitung luas, keliling, dan diagonal."""
+
+import math
+
+
+def luas(sisi: float) -> float:
+    """Menghitung luas persegi."""
+    _validasi(sisi)
+    return sisi ** 2
+
+
+def keliling(sisi: float) -> float:
+    """Menghitung keliling persegi."""
+    _validasi(sisi)
+    return 4 * sisi
+
+
+def diagonal(sisi: float) -> float:
+    """Menghitung panjang diagonal persegi."""
+    _validasi(sisi)
+    return sisi * math.sqrt(2)
+
+
+def _validasi(sisi: float) -> None:
+    if sisi <= 0:
+        raise ValueError("Sisi harus lebih dari 0.")
+
+
+def main() -> None:
+    try:
+        sisi = float(input("Masukkan panjang sisi persegi: "))
+        print(f"Luas      : {luas(sisi):.2f}")
+        print(f"Keliling  : {keliling(sisi):.2f}")
+        print(f"Diagonal  : {diagonal(sisi):.2f}")
+    except ValueError as e:
+        if "could not convert" in str(e):
+            print("Input harus berupa angka.")
+        else:
+            print(e)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## `test_persegi.py`
+
+```python
+import math
+import unittest
+
+from persegi import diagonal, keliling, luas
+
+
+class TestPersegi(unittest.TestCase):
+    def test_luas(self):
+        self.assertEqual(luas(5), 25)
+
+    def test_keliling(self):
+        self.assertEqual(keliling(5), 20)
+
+    def test_diagonal(self):
+        self.assertAlmostEqual(diagonal(5), 5 * math.sqrt(2))
+
+    def test_sisi_tidak_valid(self):
+        for fungsi in (luas, keliling, diagonal):
+            with self.assertRaises(ValueError):
+                fungsi(0)
+            with self.assertRaises(ValueError):
+                fungsi(-3)
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+## `README.md`
+
+````markdown
+# Kalkulator Persegi
+
+Program Python sederhana untuk menghitung **luas**, **keliling**, dan **diagonal** persegi.
+
+## Rumus
+
+| Besaran  | Rumus      |
+|----------|------------|
+| Luas     | sisi × sisi |
+| Keliling | 4 × sisi   |
+| Diagonal | sisi × √2  |
+
+## Persyaratan
+
+- Python 3.7 atau lebih baru (tanpa library tambahan)
+
+## Cara Menjalankan
+
+```bash
+git clone https://github.com/USERNAME/kalkulator-persegi.git
+cd kalkulator-persegi
+python persegi.py
+```
+
+Contoh:
+
+```
+Masukkan panjang sisi persegi: 5
+Luas      : 25.00
+Keliling  : 20.00
+Diagonal  : 7.07
+```
+
+## Menggunakan sebagai Modul
+
+```python
+from persegi import luas, keliling, diagonal
+
+print(luas(5))      # 25
+print(keliling(5))  # 20
+print(diagonal(5))  # 7.0710678...
+```
+
+## Menjalankan Tes
+
+```bash
+python -m unittest -v
+```
+
+## Lisensi
+
+Dirilis di bawah [Lisensi MIT](LICENSE).
+````
+
+## `.gitignore`
+
+```
+__pycache__/
+*.pyc
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+```
+
+## `LICENSE`
+
+```
+MIT License
+
+Copyright (c) 2026 REFAN SETIAWAN
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
